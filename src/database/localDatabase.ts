@@ -7,6 +7,8 @@ const STORAGE_KEYS = {
   SYNC_QUEUE: 'ner_care_sync_queue_v1',
   ASHA_NOTES: 'ner_care_asha_notes_v1',
   OFFLINE_MODE: 'ner_care_is_offline_simulated',
+  LANGUAGE_SELECTED: 'ner_care_language_selected_v1',
+  PROFILE_SETUP_COMPLETE: 'ner_care_profile_setup_complete_v1',
 };
 
 const DEFAULT_PATIENT: Patient = {
@@ -155,7 +157,14 @@ export class LocalDatabase {
   }
 
   public static getPatient(): Patient {
-    return this.getItem<Patient>(STORAGE_KEYS.PATIENT, DEFAULT_PATIENT);
+    const patient = this.getItem<Patient>(STORAGE_KEYS.PATIENT, DEFAULT_PATIENT);
+    // Safe migration: if old user profile contains 'ta' or unknown language, migrate to default 'en'
+    const validLanguages = ['en', 'hi', 'as', 'bn', 'lus'];
+    if ((patient.language_pref as string) === 'ta' || !validLanguages.includes(patient.language_pref)) {
+      patient.language_pref = 'en';
+      this.savePatient(patient);
+    }
+    return patient;
   }
 
   public static savePatient(patient: Patient): void {
@@ -200,5 +209,21 @@ export class LocalDatabase {
 
   public static setIsOfflineSimulated(val: boolean): void {
     this.setItem(STORAGE_KEYS.OFFLINE_MODE, val);
+  }
+
+  public static getLanguageSelected(): boolean {
+    return this.getItem<boolean>(STORAGE_KEYS.LANGUAGE_SELECTED, false);
+  }
+
+  public static setLanguageSelected(val: boolean): void {
+    this.setItem(STORAGE_KEYS.LANGUAGE_SELECTED, val);
+  }
+
+  public static getProfileSetupComplete(): boolean {
+    return this.getItem<boolean>(STORAGE_KEYS.PROFILE_SETUP_COMPLETE, false);
+  }
+
+  public static setProfileSetupComplete(val: boolean): void {
+    this.setItem(STORAGE_KEYS.PROFILE_SETUP_COMPLETE, val);
   }
 }

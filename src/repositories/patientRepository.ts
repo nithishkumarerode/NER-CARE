@@ -36,7 +36,9 @@ export class PatientRepository {
   }
 
   public updateLanguage(lang: Language): Patient {
-    return this.updatePatient({ language_pref: lang });
+    const validLanguages: Language[] = ['en', 'hi', 'as', 'bn', 'lus'];
+    const safeLang = validLanguages.includes(lang) ? lang : 'en';
+    return this.updatePatient({ language_pref: safeLang });
   }
 }
 

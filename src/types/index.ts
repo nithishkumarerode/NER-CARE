@@ -1,4 +1,4 @@
-export type Language = 'en' | 'hi' | 'as' | 'bn' | 'ta' | 'lus';
+export type Language = 'en' | 'hi' | 'as' | 'bn' | 'lus';
 
 export type UserRole = 'patient' | 'caregiver' | 'asha';
 
@@ -19,6 +19,7 @@ export interface Patient {
   water_intake: number;
   water_target: number;
   brain_age: number;
+  health_conditions?: string[];
   created_at: string;
   updated_at: string;
 }

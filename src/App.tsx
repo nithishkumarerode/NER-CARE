@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { LocalDatabase } from './database/localDatabase';
 import { Language, Patient, Reminder, GameSession, UserRole, GameType } from './types';
 import { patientRepository } from './repositories/patientRepository';
 import { reminderRepository } from './repositories/reminderRepository';
@@ -16,6 +17,7 @@ import { DemoToolbar } from './components/demo/DemoToolbar';
 // Pages
 import { SplashScreen } from './pages/splash/SplashScreen';
 import { OnboardingFlow } from './pages/onboarding/OnboardingFlow';
+import { LoginProfileFlow } from './pages/login/LoginProfileFlow';
 import { LanguageSelectScreen } from './pages/language/LanguageSelectScreen';
 import { HomeDashboard } from './pages/home/HomeDashboard';
 import { ProgressScreen } from './pages/progress/ProgressScreen';
@@ -36,6 +38,8 @@ import { AppearanceScreen } from './pages/appearance/AppearanceScreen';
 export const App: React.FC = () => {
   // App Core State
   const [showSplash, setShowSplash] = useState<boolean>(true);
+  const [hasChosenLanguage, setHasChosenLanguage] = useState<boolean>(LocalDatabase.getLanguageSelected());
+  const [hasCompletedProfile, setHasCompletedProfile] = useState<boolean>(LocalDatabase.getProfileSetupComplete());
   const [isOnboarding, setIsOnboarding] = useState<boolean>(false);
   const [showLanguageScreen, setShowLanguageScreen] = useState<boolean>(false);
   const [showAppearanceScreen, setShowAppearanceScreen] = useState<boolean>(false);
@@ -85,7 +89,16 @@ export const App: React.FC = () => {
   const handleLanguageSelect = (lang: Language) => {
     const updated = patientRepository.updateLanguage(lang);
     setPatient(updated);
+    LocalDatabase.setLanguageSelected(true);
+    setHasChosenLanguage(true);
     setShowLanguageScreen(false);
+  };
+
+  const handleProfileComplete = (updates: Partial<typeof patient>) => {
+    const updated = patientRepository.updatePatient(updates);
+    setPatient(updated);
+    LocalDatabase.setProfileSetupComplete(true);
+    setHasCompletedProfile(true);
   };
 
   const handleTriggerAlarm = (rem?: Reminder) => {
@@ -132,7 +145,30 @@ export const App: React.FC = () => {
     return <SplashScreen onFinish={() => setShowSplash(false)} />;
   }
 
-  // 2. ONBOARDING & ASSESSMENT SEQUENCE (Pages 2 to 14)
+  // 2. FIRST-LAUNCH LANGUAGE SELECTION OR MANUAL SWITCH
+  if (!hasChosenLanguage || showLanguageScreen) {
+    return (
+      <LanguageSelectScreen
+        currentLanguage={patient.language_pref}
+        onSelectLanguage={handleLanguageSelect}
+        onBack={hasChosenLanguage ? () => setShowLanguageScreen(false) : undefined}
+        isFirstLaunch={!hasChosenLanguage}
+      />
+    );
+  }
+
+  // 3. FIRST-TIME PROFILE SETUP (shown once after language selection)
+  if (!hasCompletedProfile && !showLanguageScreen) {
+    return (
+      <LoginProfileFlow
+        language={patient.language_pref}
+        patient={patient}
+        onComplete={handleProfileComplete}
+      />
+    );
+  }
+
+  // 4. ONBOARDING & ASSESSMENT SEQUENCE (Pages 2 to 14)
   if (isOnboarding) {
     return (
       <OnboardingFlow
@@ -144,17 +180,6 @@ export const App: React.FC = () => {
           setIsOnboarding(false);
         }}
         onSkipToHome={() => setIsOnboarding(false)}
-      />
-    );
-  }
-
-  // 3. MULTILINGUAL SELECTOR
-  if (showLanguageScreen) {
-    return (
-      <LanguageSelectScreen
-        currentLanguage={patient.language_pref}
-        onSelectLanguage={handleLanguageSelect}
-        onBack={() => setShowLanguageScreen(false)}
       />
     );
   }
@@ -362,7 +387,7 @@ export const App: React.FC = () => {
       </main>
 
       {/* Floating Bottom Navigation Bar matching Reference Pages 15-21 */}
-      <BottomNavBar currentTab={currentTab} onTabChange={setCurrentTab} />
+      <BottomNavBar currentTab={currentTab} onTabChange={setCurrentTab} language={patient.language_pref} />
 
       {/* Full-Screen Live Alarm Modal */}
       <LiveAlarmModal

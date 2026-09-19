@@ -121,20 +121,51 @@ class VoiceService {
     });
   }
 
-  public listenOnce(onResult: (text: string) => void, onError?: (err: any) => void): () => void {
-    if (!this.recognition) {
+  public isSpeechRecognitionSupported(): boolean {
+    if (typeof window === 'undefined') return false;
+    return !!((window as any).SpeechRecognition || (window as any).webkitSpeechRecognition);
+  }
+
+  public listenOnce(
+    onResult: (text: string) => void, 
+    onError?: (err: any) => void,
+    onEnd?: () => void
+  ): () => void {
+    if (typeof window === 'undefined') return () => {};
+
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
       if (onError) onError(new Error('Speech recognition not supported in this browser'));
       return () => {};
     }
 
     try {
+      if (this.recognition) {
+        try {
+          this.recognition.abort();
+        } catch (e) {}
+      }
+
+      this.recognition = new SpeechRecognition();
+      this.recognition.continuous = false;
+      this.recognition.interimResults = false;
+      this.recognition.lang = 'en-IN'; // Indian English / multilingual friendly default
+
       this.recognition.onresult = (event: any) => {
-        const transcript = event.results[0][0].transcript;
-        onResult(transcript);
+        try {
+          const transcript = event.results[0][0].transcript;
+          onResult(transcript);
+        } catch (err) {
+          if (onError) onError(err);
+        }
       };
 
       this.recognition.onerror = (event: any) => {
-        if (onError) onError(event.error);
+        if (onError) onError(event.error || event);
+      };
+
+      this.recognition.onend = () => {
+        if (onEnd) onEnd();
       };
 
       this.recognition.start();
@@ -143,9 +174,11 @@ class VoiceService {
     }
 
     return () => {
-      try {
-        this.recognition.stop();
-      } catch (e) {}
+      if (this.recognition) {
+        try {
+          this.recognition.stop();
+        } catch (e) {}
+      }
     };
   }
 }
