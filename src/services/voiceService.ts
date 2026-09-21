@@ -129,7 +129,8 @@ class VoiceService {
   public listenOnce(
     onResult: (text: string) => void, 
     onError?: (err: any) => void,
-    onEnd?: () => void
+    onEnd?: () => void,
+    langCode?: string
   ): () => void {
     if (typeof window === 'undefined') return () => {};
 
@@ -149,7 +150,7 @@ class VoiceService {
       this.recognition = new SpeechRecognition();
       this.recognition.continuous = false;
       this.recognition.interimResults = false;
-      this.recognition.lang = 'en-IN'; // Indian English / multilingual friendly default
+      this.recognition.lang = langCode || 'en-IN';
 
       this.recognition.onresult = (event: any) => {
         try {

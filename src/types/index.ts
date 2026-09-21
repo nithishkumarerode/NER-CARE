@@ -1,4 +1,4 @@
-export type Language = 'en' | 'hi' | 'as' | 'bn' | 'lus';
+export type Language = 'en' | 'hi' | 'ta' | 'as' | 'bn' | 'lus';
 
 export type UserRole = 'patient' | 'caregiver' | 'asha';
 
@@ -19,7 +19,20 @@ export interface Patient {
   water_intake: number;
   water_target: number;
   brain_age: number;
+  gender?: string;
+  mobile_number?: string;
   health_conditions?: string[];
+  // 10 Health & Wellbeing fields
+  sleep_duration?: string;
+  physical_activity?: string;
+  daily_independence?: string;
+  memory_concern?: string;
+  hearing_status?: string;
+  vision_status?: string;
+  social_engagement?: string;
+  medication_routine?: string;
+  caregiver_support?: string;
+  comfort_preferences?: string[];
   created_at: string;
   updated_at: string;
 }

@@ -58,6 +58,7 @@ export const LanguageSelectScreen: React.FC<LanguageSelectScreenProps> = ({
 
     if (/english|angrezi|इंग्लिश|ইংরেজি|ইংৰাজী/.test(clean)) return 'en';
     if (/hindi|hindee|हिन्दी|हिंदी|হিন্দি/.test(clean)) return 'hi';
+    if (/tamil|thamizh|தமிழ்|तमिल|তামিল/.test(clean)) return 'ta';
     if (/bengali|bangla|বাংল|বাংলা|बंगाली|বঙালী/.test(clean)) return 'bn';
     if (/assamese|asomiya|oxomiya|axomiya|অসমীয়া|অসমীয়া|असमिया/.test(clean)) return 'as';
     if (/mizo|lushei|lushai|ṭawng|tawng|मिज़ो|মিজো/.test(clean)) return 'lus';
