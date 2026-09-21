@@ -51,7 +51,8 @@ class VoiceService {
       this.synth.cancel(); // cancel any previous utterance
       const utterance = new SpeechSynthesisUtterance(text);
       
-      const langInfo = SUPPORTED_LANGUAGES.find(l => l.code === lang);
+      const safeLang: Language = SUPPORTED_LANGUAGES.some(l => l.code === lang) ? lang : 'en';
+      const langInfo = SUPPORTED_LANGUAGES.find(l => l.code === safeLang);
       utterance.lang = langInfo?.voiceCode || 'en-US';
       utterance.rate = 0.88; // Slightly slower, calm cadence for elderly comprehension
       utterance.pitch = 1.05; // Warm, friendly tone
@@ -150,7 +151,8 @@ class VoiceService {
       this.recognition = new SpeechRecognition();
       this.recognition.continuous = false;
       this.recognition.interimResults = false;
-      this.recognition.lang = langCode || 'en-IN';
+      const safeLangCode = (langCode === 'ta' || langCode === 'ta-IN') ? 'en-IN' : (langCode || 'en-IN');
+      this.recognition.lang = safeLangCode;
 
       this.recognition.onresult = (event: any) => {
         try {

@@ -28,11 +28,7 @@ import { RemindersScreen } from './pages/reminders/RemindersScreen';
 import { ASHAWorkerDashboard } from './pages/asha/ASHAWorkerDashboard';
 
 // Games
-import { MemoryMatchGame } from './features/games/MemoryMatchGame';
-import { RoutineRecallGame } from './features/games/RoutineRecallGame';
-import { PatternGame } from './features/games/PatternGame';
-import { AttentionGame } from './features/games/AttentionGame';
-import { EmotionGame } from './features/games/EmotionGame';
+import { GameRouter } from './features/games/GameRouter';
 import { AppearanceScreen } from './pages/appearance/AppearanceScreen';
 
 export const App: React.FC = () => {
@@ -242,41 +238,12 @@ export const App: React.FC = () => {
   if (activeGame) {
     return (
       <div className="min-h-screen theme-bg text-inherit py-4">
-        {activeGame === 'memory_match' && (
-          <MemoryMatchGame
-            language={patient.language_pref}
-            onBack={() => setActiveGame(null)}
-            onCompleteSession={(newSession) => setSessions(gameSessionRepository.getSessions())}
-          />
-        )}
-        {activeGame === 'routine_recall' && (
-          <RoutineRecallGame
-            language={patient.language_pref}
-            onBack={() => setActiveGame(null)}
-            onCompleteSession={(newSession) => setSessions(gameSessionRepository.getSessions())}
-          />
-        )}
-        {activeGame === 'pattern_recognition' && (
-          <PatternGame
-            language={patient.language_pref}
-            onBack={() => setActiveGame(null)}
-            onCompleteSession={(newSession) => setSessions(gameSessionRepository.getSessions())}
-          />
-        )}
-        {activeGame === 'attention' && (
-          <AttentionGame
-            language={patient.language_pref}
-            onBack={() => setActiveGame(null)}
-            onCompleteSession={(newSession) => setSessions(gameSessionRepository.getSessions())}
-          />
-        )}
-        {activeGame === 'emotion_recognition' && (
-          <EmotionGame
-            language={patient.language_pref}
-            onBack={() => setActiveGame(null)}
-            onCompleteSession={(newSession) => setSessions(gameSessionRepository.getSessions())}
-          />
-        )}
+        <GameRouter
+          gameType={activeGame}
+          user={patient}
+          onExit={() => setActiveGame(null)}
+          onSessionComplete={() => setSessions(gameSessionRepository.getSessions())}
+        />
       </div>
     );
   }

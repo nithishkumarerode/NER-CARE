@@ -1,5 +1,5 @@
 import { LocalDatabase } from '../database/localDatabase';
-import { GameSession, CognitiveProfile } from '../types';
+import { GameSession, CognitiveProfile, GameType } from '../types';
 import { syncRepository } from './syncRepository';
 
 export class GameSessionRepository {
@@ -35,26 +35,34 @@ export class GameSessionRepository {
       };
     }
 
-    const memorySessions = sessions.filter(s => s.game_type === 'memory_match' || s.game_type === 'routine_recall');
-    const attentionSessions = sessions.filter(s => s.game_type === 'attention' || s.game_type === 'pattern_recognition');
-    
+    const memoryTypes: GameType[] = [
+      'memory_village', 'memory_house', 'pack_journey', 'memory_chain', 
+      'smart_market', 'then_and_now', 'memory_lock', 'room_changes', 'memory_match'
+    ];
+    const attentionTypes: GameType[] = ['attention', 'who_did_what', 'familiar_tune'];
+    const spatialTypes: GameType[] = ['guide_home', 'memory_map', 'bus_route'];
+    const auditoryTypes: GameType[] = ['sound_memory', 'story_recall'];
+    const routineTypes: GameType[] = ['morning_routine', 'routine_recall', 'yesterday_today_tomorrow', 'season_memory'];
+    const reasoningTypes: GameType[] = ['pattern_recognition', 'family_tree', 'memory_detective', 'emotion_recognition'];
+
+    const memorySessions = sessions.filter(s => memoryTypes.includes(s.game_type));
+    const attentionSessions = sessions.filter(s => attentionTypes.includes(s.game_type));
+    const spatialSessions = sessions.filter(s => spatialTypes.includes(s.game_type));
+    const reasoningSessions = sessions.filter(s => reasoningTypes.includes(s.game_type));
+
     const avgScore = Math.round(sessions.reduce((acc, s) => acc + s.score, 0) / sessions.length);
-    const memScore = memorySessions.length > 0 
-      ? Math.round(memorySessions.reduce((acc, s) => acc + s.score, 0) / memorySessions.length)
-      : 52;
-    const attScore = attentionSessions.length > 0
-      ? Math.round(attentionSessions.reduce((acc, s) => acc + s.score, 0) / attentionSessions.length)
-      : 48;
+    const getAvg = (list: GameSession[], fallback: number) => 
+      list.length > 0 ? Math.round(list.reduce((acc, s) => acc + s.score, 0) / list.length) : fallback;
 
     return {
       overallScore: avgScore,
-      memoryScore: memScore,
-      attentionScore: attScore,
-      perceptionScore: Math.min(95, Math.round(avgScore * 0.92)),
-      reasoningScore: Math.min(95, Math.round(avgScore * 0.88)),
+      memoryScore: getAvg(memorySessions, 52),
+      attentionScore: getAvg(attentionSessions, 48),
+      perceptionScore: getAvg(spatialSessions, Math.min(95, Math.round(avgScore * 0.92))),
+      reasoningScore: getAvg(reasoningSessions, Math.min(95, Math.round(avgScore * 0.88))),
       coordinationScore: Math.min(95, Math.round(avgScore * 0.9)),
-      unlockedPercentage: Math.min(100, 4 + sessions.length * 8),
-      brainAge: Math.max(50, 72 - Math.round(sessions.length * 0.8)),
+      unlockedPercentage: Math.min(100, Math.max(10, sessions.length * 5)),
+      brainAge: Math.max(50, 72 - Math.round(sessions.length * 0.5)),
     };
   }
 }

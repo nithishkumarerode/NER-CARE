@@ -1,4 +1,4 @@
-export type Language = 'en' | 'hi' | 'ta' | 'as' | 'bn' | 'lus';
+export type Language = 'en' | 'hi' | 'as' | 'bn' | 'lus';
 
 export type UserRole = 'patient' | 'caregiver' | 'asha';
 
@@ -37,13 +37,53 @@ export interface Patient {
   updated_at: string;
 }
 
+export type GameCategory = 
+  | 'memory' 
+  | 'attention' 
+  | 'spatial' 
+  | 'auditory' 
+  | 'routine' 
+  | 'reasoning';
+
 export type GameType = 
+  // 20 Core Cognitive Games
+  | 'memory_village'
+  | 'morning_routine'
+  | 'who_did_what'
+  | 'memory_house'
+  | 'pack_journey'
+  | 'bus_route'
+  | 'story_recall'
+  | 'sound_memory'
+  | 'memory_chain'
+  | 'smart_market'
+  | 'then_and_now'
+  | 'family_tree'
+  | 'memory_lock'
+  | 'guide_home'
+  | 'room_changes'
+  | 'familiar_tune'
+  | 'yesterday_today_tomorrow'
+  | 'season_memory'
+  | 'memory_map'
+  | 'memory_detective'
+  // Legacy aliases
   | 'memory_match' 
   | 'routine_recall' 
   | 'pattern_recognition' 
   | 'attention' 
   | 'object_recognition' 
   | 'emotion_recognition';
+
+export interface GameProgress {
+  gameId: GameType;
+  highestLevel: number;
+  bestScore: number;
+  bestAccuracy: number;
+  sessionsCompleted: number;
+  lastPlayed: string;
+  adaptiveLevel: number;
+}
 
 export interface GameSession {
   session_id: string;
@@ -53,7 +93,7 @@ export interface GameSession {
   accuracy: number; // 0 to 1
   reaction_time: number; // ms
   error_count: number;
-  difficulty_level: number; // 1 to 3
+  difficulty_level: number; // 1 to 6
   timestamp: string;
   sync_status: 'synced' | 'pending';
 }

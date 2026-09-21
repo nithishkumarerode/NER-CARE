@@ -3,7 +3,8 @@ export interface DifficultyMetrics {
   reactionTime: number; // ms
   errorRate: number; // 0 to 1
   completionRate: number; // 0 to 1
-  currentLevel: number; // 1 to 3
+  currentLevel: number; // 1 to 6
+  maxLevel?: number; // defaults to 6
 }
 
 export interface AdaptiveResult {
@@ -17,11 +18,17 @@ export interface AdaptiveResult {
 export class AdaptiveDifficultyEngine {
   /**
    * Evaluates cognitive gameplay session and computes adaptive difficulty
-   * Follows FRD formula:
+   * Follows prompt formula:
    * Score = 0.5 * accuracy + 0.2 * normalizedReactionTime + 0.2 * completionRate + 0.1 * consistency
+   *
+   * Rules:
+   * - accuracy >= 85% AND completionRate >= 80% -> increase difficulty slightly
+   * - accuracy 60-84% -> maintain difficulty
+   * - accuracy < 60% -> reduce difficulty slightly or repeat current level
    */
   public evaluate(metrics: DifficultyMetrics): AdaptiveResult {
-    // Normalize reaction time: < 1500ms is ideal (1.0), > 4000ms is 0.2
+    const maxLevel = metrics.maxLevel || 6;
+    // Normalize reaction time: < 1500ms is ideal (1.0), > 5000ms is 0.2
     const normalizedReaction = Math.max(0.1, Math.min(1.0, 1.0 - (metrics.reactionTime - 1000) / 4000));
     const consistency = Math.max(0, 1.0 - metrics.errorRate);
 
@@ -34,24 +41,27 @@ export class AdaptiveDifficultyEngine {
 
     let newLevel = metrics.currentLevel;
     let adjustment: 'increased' | 'maintained' | 'decreased' = 'maintained';
-    let reasoning = 'Current difficulty is balanced for comfortable engagement.';
+    let reasoning = 'Great steady effort! Continuing at this comfortable level.';
 
-    if (performanceScore > 0.82 && metrics.accuracy >= 0.8) {
-      if (metrics.currentLevel < 3) {
+    if (metrics.accuracy >= 0.85 && metrics.completionRate >= 0.8) {
+      if (metrics.currentLevel < maxLevel) {
         newLevel = metrics.currentLevel + 1;
         adjustment = 'increased';
-        reasoning = 'High mastery demonstrated. Gently increasing challenge to keep synapses active.';
+        reasoning = 'High mastery demonstrated! Progressing gently to the next level.';
       } else {
-        reasoning = 'Excellent mastery! Maintaining peak training level.';
+        reasoning = 'Outstanding mastery! You have completed all 6 levels with distinction.';
       }
-    } else if (performanceScore < 0.52 || metrics.accuracy < 0.5) {
+    } else if (metrics.accuracy < 0.6) {
       if (metrics.currentLevel > 1) {
         newLevel = metrics.currentLevel - 1;
         adjustment = 'decreased';
-        reasoning = 'Reducing challenge slightly to ensure a calm, relaxed, and dignified experience.';
+        reasoning = 'Pacing adjusted to keep you relaxed and confident. Every attempt helps your mind.';
       } else {
-        reasoning = 'Maintaining foundational pace for maximum comfort and reassurance.';
+        reasoning = 'Maintaining foundational pace for maximum comfort, reassurance, and steady practice.';
       }
+    } else {
+      adjustment = 'maintained';
+      reasoning = 'Solid performance! Practice reinforces neural pathways. Continuing at this level.';
     }
 
     return {

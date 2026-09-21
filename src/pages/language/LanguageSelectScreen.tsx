@@ -58,7 +58,6 @@ export const LanguageSelectScreen: React.FC<LanguageSelectScreenProps> = ({
 
     if (/english|angrezi|इंग्लिश|ইংরেজি|ইংৰাজী/.test(clean)) return 'en';
     if (/hindi|hindee|हिन्दी|हिंदी|হিন্দি/.test(clean)) return 'hi';
-    if (/tamil|thamizh|தமிழ்|तमिल|তামিল/.test(clean)) return 'ta';
     if (/bengali|bangla|বাংল|বাংলা|बंगाली|বঙালী/.test(clean)) return 'bn';
     if (/assamese|asomiya|oxomiya|axomiya|অসমীয়া|অসমীয়া|असमिया/.test(clean)) return 'as';
     if (/mizo|lushei|lushai|ṭawng|tawng|मिज़ो|মিজো/.test(clean)) return 'lus';
@@ -260,9 +259,10 @@ export const LanguageSelectScreen: React.FC<LanguageSelectScreenProps> = ({
 
       {/* Large Language Cards (Elderly-Friendly & High Contrast) matching Requirement 1 */}
       <div className="w-full max-w-lg grid grid-cols-1 sm:grid-cols-2 gap-3.5 my-2 z-10">
-        {SUPPORTED_LANGUAGES.map((lang) => {
+        {SUPPORTED_LANGUAGES.map((lang, idx) => {
           const isSelected = selectedLang === lang.code;
           const isPreviewing = playingPreview === lang.code;
+          const isLastOdd = idx === SUPPORTED_LANGUAGES.length - 1 && SUPPORTED_LANGUAGES.length % 2 !== 0;
 
           return (
             <div
@@ -272,6 +272,8 @@ export const LanguageSelectScreen: React.FC<LanguageSelectScreenProps> = ({
               tabIndex={0}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleCardClick(lang); }}
               className={`p-4 sm:p-5 rounded-3xl border-2 flex items-center justify-between cursor-pointer transition-all duration-200 active:scale-[0.98] shadow-lg min-h-[92px] ${
+                isLastOdd ? 'sm:col-span-2' : ''
+              } ${
                 isSelected
                   ? 'bg-gradient-to-r from-blue-900/90 to-cyan-950 border-cyan-400 shadow-cyan-500/25 ring-2 ring-cyan-400/40'
                   : 'bg-[#0B1528] border-slate-700/70 hover:border-blue-400/60 hover:bg-[#0F1D38]'

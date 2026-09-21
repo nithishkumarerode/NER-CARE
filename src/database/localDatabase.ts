@@ -1,8 +1,9 @@
-import { Patient, GameSession, Reminder, SyncQueueItem, ASHANote } from '../types';
+import { Patient, GameSession, Reminder, SyncQueueItem, ASHANote, GameProgress, GameType } from '../types';
 
 const STORAGE_KEYS = {
   PATIENT: 'ner_care_patient_v1',
   GAME_SESSIONS: 'ner_care_game_sessions_v1',
+  GAME_PROGRESS: 'ner_care_game_progress_v1',
   REMINDERS: 'ner_care_reminders_v1',
   SYNC_QUEUE: 'ner_care_sync_queue_v1',
   ASHA_NOTES: 'ner_care_asha_notes_v1',
@@ -225,5 +226,40 @@ export class LocalDatabase {
 
   public static setProfileSetupComplete(val: boolean): void {
     this.setItem(STORAGE_KEYS.PROFILE_SETUP_COMPLETE, val);
+  }
+
+  public static getAllGameProgress(): Record<string, GameProgress> {
+    return this.getItem<Record<string, GameProgress>>(STORAGE_KEYS.GAME_PROGRESS, {});
+  }
+
+  public static getGameProgress(gameId: GameType): GameProgress {
+    const all = this.getAllGameProgress();
+    if (all[gameId]) {
+      return all[gameId];
+    }
+    return {
+      gameId,
+      highestLevel: 1,
+      bestScore: 0,
+      bestAccuracy: 0,
+      sessionsCompleted: 0,
+      lastPlayed: '',
+      adaptiveLevel: 1,
+    };
+  }
+
+  public static saveGameProgress(progress: GameProgress): void {
+    const all = this.getAllGameProgress();
+    const existing = all[progress.gameId];
+    all[progress.gameId] = {
+      gameId: progress.gameId,
+      highestLevel: Math.max(existing?.highestLevel || 1, progress.highestLevel),
+      bestScore: Math.max(existing?.bestScore || 0, progress.bestScore),
+      bestAccuracy: Math.max(existing?.bestAccuracy || 0, progress.bestAccuracy),
+      sessionsCompleted: (existing?.sessionsCompleted || 0) + 1,
+      lastPlayed: new Date().toISOString(),
+      adaptiveLevel: progress.adaptiveLevel || existing?.adaptiveLevel || 1,
+    };
+    this.setItem(STORAGE_KEYS.GAME_PROGRESS, all);
   }
 }
