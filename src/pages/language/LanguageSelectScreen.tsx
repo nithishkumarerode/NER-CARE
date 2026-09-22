@@ -176,10 +176,10 @@ export const LanguageSelectScreen: React.FC<LanguageSelectScreenProps> = ({
           <div className="w-12 h-12" />
         )}
 
-        {/* Cognitive Care Branding Badge */}
-        <div className="flex items-center space-x-2 px-4 py-1.5 rounded-full bg-blue-950/70 border border-blue-500/30 text-cyan-300 shadow-inner">
-          <Brain className="w-5 h-5 text-cyan-400 animate-pulse" />
-          <span className="text-sm font-bold tracking-wide">🧠 Cognitive Care</span>
+        {/* Memora Branding Badge */}
+        <div className="flex items-center space-x-2.5 px-4 py-1.5 rounded-full bg-slate-900/90 border border-teal-500/30 text-teal-300 shadow-inner">
+          <img src="/memora-logo.png" alt="Memora logo" className="w-5 h-5 object-contain" />
+          <span className="text-sm font-bold tracking-wide">Memora</span>
         </div>
 
         <div className="w-12 h-12" />

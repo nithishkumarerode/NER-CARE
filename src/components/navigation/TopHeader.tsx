@@ -39,20 +39,24 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         )}
       </button>
 
-      {/* Center: Online/Offline Badge & Regional Identity */}
+      {/* Center: Memora Brand + Online/Offline Status */}
       <div className="flex flex-col items-center">
-        <div className="flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-900/90 border border-slate-700/80 text-xs font-semibold">
+        <div className="flex items-center space-x-1.5 mb-0.5">
+          <img src="/memora-logo.png" alt="Memora logo" className="w-5 h-5 object-contain" />
+          <span className="text-sm font-extrabold tracking-wide text-white">Memora</span>
+        </div>
+        <div className="flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-[10px] font-semibold">
           {isOffline ? (
             <>
-              <span className="w-2 h-2 rounded-full bg-amber-400"></span>
-              <WifiOff className="w-3.5 h-3.5 text-amber-400" />
-              <span className="text-amber-300">Offline Safe</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+              <WifiOff className="w-3 h-3 text-amber-400" />
+              <span className="text-amber-300">Offline</span>
             </>
           ) : (
             <>
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <Wifi className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="text-emerald-300">Cloud Synced</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <Wifi className="w-3 h-3 text-emerald-400" />
+              <span className="text-emerald-300">Synced</span>
             </>
           )}
         </div>

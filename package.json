@@ -9,10 +9,13 @@
     "preview": "vite preview --port 3000"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "@capacitor/android": "^8.5.2",
+    "@capacitor/cli": "^8.5.2",
+    "@capacitor/core": "^8.5.2",
+    "canvas-confetti": "^1.9.3",
     "lucide-react": "^0.441.0",
-    "canvas-confetti": "^1.9.3"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/canvas-confetti": "^1.9.0",

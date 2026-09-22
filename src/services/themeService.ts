@@ -6,7 +6,7 @@ export const PRESET_THEMES: Record<ThemeId, ThemeConfig> = {
     id: 'dark',
     name: 'Dark Navy',
     icon: '🌙',
-    description: 'Original CogniCare royal navy theme',
+    description: 'Original Memora royal navy theme',
     appBackground: '#060D1E',
     appBackgroundGradient: 'linear-gradient(180deg, #09152E 0%, #060D1E 100%)',
     surfaceBackground: '#0B172E',

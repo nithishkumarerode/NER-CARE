@@ -20,7 +20,7 @@ export const SUPPORTED_LANGUAGES: LanguageInfo[] = [
     voiceCode: 'en-US', 
     flag: '🇬🇧',
     voiceConfirmation: 'Yes, you have selected English.',
-    sampleGreeting: 'Hello, welcome to Cognitive Care.'
+    sampleGreeting: 'Hello, welcome to Memora.'
   },
   { 
     code: 'hi', 
@@ -30,7 +30,7 @@ export const SUPPORTED_LANGUAGES: LanguageInfo[] = [
     voiceCode: 'hi-IN', 
     flag: '🇮🇳',
     voiceConfirmation: 'हाँ, आपने हिन्दी भाषा चुनी है।',
-    sampleGreeting: 'नमस्ते, कॉग्निटिव केयर में आपका स्वागत है।'
+    sampleGreeting: 'नमस्ते, Memora में आपका स्वागत है।'
   },
   { 
     code: 'bn', 
@@ -40,7 +40,7 @@ export const SUPPORTED_LANGUAGES: LanguageInfo[] = [
     voiceCode: 'bn-IN', 
     flag: 'বাংলা',
     voiceConfirmation: 'হ্যাঁ, আপনি বাংলা ভাষা নির্বাচন করেছেন।',
-    sampleGreeting: 'নমস্কার, কগনিটিভ কেয়ারে স্বাগতম।'
+    sampleGreeting: 'নমস্কার, Memora-য় স্বাগতম।'
   },
   { 
     code: 'as', 
@@ -50,7 +50,7 @@ export const SUPPORTED_LANGUAGES: LanguageInfo[] = [
     voiceCode: 'as-IN', 
     flag: 'অসমীয়া',
     voiceConfirmation: 'হয়, আপুনি অসমীয়া ভাষা বাছনি কৰিছে।',
-    sampleGreeting: 'নমস্কাৰ, কগনিটিভ কেয়াৰলৈ স্বাগতম।'
+    sampleGreeting: 'নমস্কাৰ, Memora-লৈ স্বাগতম।'
   },
   { 
     code: 'lus', 
@@ -60,15 +60,15 @@ export const SUPPORTED_LANGUAGES: LanguageInfo[] = [
     voiceCode: 'en-IN', 
     flag: 'Mizo',
     voiceConfirmation: 'Aw, Mizo ṭawng i thlang e.',
-    sampleGreeting: 'Chibai, Cognitive Care-ah kan lo lawm a che.'
+    sampleGreeting: 'Chibai, Memora-ah kan lo lawm a che.'
   },
 ];
 
 export const translations: Record<Language, Record<string, string>> = {
   en: {
-    appName: "CogniCare NER",
+    appName: "Memora",
     tagline: "Remember. Engage. Live Independently.",
-    welcomeTitle: "Welcome to CogniCare!",
+    welcomeTitle: "Welcome to Memora!",
     neuroIntro: "I'm Neuro. Together, let's discover how your brain is doing.",
     getStarted: "Get Started",
     login: "Login",
@@ -179,7 +179,7 @@ export const translations: Record<Language, Record<string, string>> = {
     navGames: "Games",
     navFamily: "Family",
     navSettings: "Settings",
-    cognitiveCare: "Cognitive Care",
+    cognitiveCare: "Memora",
     chooseLanguage: "Choose Your Language",
     languageSubtext: "Select the language you are most comfortable with.",
     sayYourLanguage: "You can also say your language.",
@@ -267,9 +267,9 @@ export const translations: Record<Language, Record<string, string>> = {
     passwordTooShortError: "Password must be at least 6 characters.",
   },
   as: {
-    appName: "CogniCare NER",
+    appName: "Memora",
     tagline: "মনত ৰাখক। সক্ৰিয় থাকক। স্বাৱলম্বী হৈ জীয়াই থাকক।",
-    welcomeTitle: "CogniCare লৈ স্বাগতম!",
+    welcomeTitle: "Memora লৈ স্বাগতম!",
     neuroIntro: "মই নিউৰো। আহক একেলগে আপোনাৰ মনৰ যত্ন লওঁ।",
     getStarted: "আৰম্ভ কৰক",
     login: "লগইন",
@@ -468,9 +468,9 @@ export const translations: Record<Language, Record<string, string>> = {
     passwordTooShortError: "পাছৱৰ্ড অতি কমেও ৬ টা আখৰৰ হ'ব লাগিব।",
   },
   hi: {
-    appName: "CogniCare NER",
+    appName: "Memora",
     tagline: "याद रखें। सक्रिय रहें। आत्मनिर्भर जीवन जिएं।",
-    welcomeTitle: "CogniCare में आपका स्वागत है!",
+    welcomeTitle: "Memora में आपका स्वागत है!",
     neuroIntro: "मैं हूँ न्यूरो। आइए मिलकर आपके मस्तिष्क का ध्यान रखें।",
     getStarted: "शुरू करें",
     login: "लॉगिन",
@@ -669,9 +669,9 @@ export const translations: Record<Language, Record<string, string>> = {
     passwordTooShortError: "पासवर्ड कम से कम 6 वर्णों का होना चाहिए।",
   },
   bn: {
-    appName: "CogniCare NER",
+    appName: "Memora",
     tagline: "মনে রাখুন। সক্রিয় থাকুন। স্বাধীনভাবে বাঁচুন।",
-    welcomeTitle: "CogniCare এ স্বাগতম!",
+    welcomeTitle: "Memora এ স্বাগতম!",
     neuroIntro: "আমি নিউরো। আসুন একসাথে আপনার মনের যত্ন নিই।",
     getStarted: "শুরু করুন",
     login: "লগইন",
@@ -870,9 +870,9 @@ export const translations: Record<Language, Record<string, string>> = {
     passwordTooShortError: "পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে।",
   },
   lus: {
-    appName: "CogniCare NER",
+    appName: "Memora",
     tagline: "Hre reng rawh. Hrisel la. Mahniin inenkawl rawh.",
-    welcomeTitle: "CogniCare-ah kan lo lawm a che!",
+    welcomeTitle: "Memora-ah kan lo lawm a che!",
     neuroIntro: "Neuro ka ni. I thluak hriselna i enfiah dun ang hmiang.",
     getStarted: "Bul ṭan rawh",
     login: "Lut rawh",
@@ -983,7 +983,7 @@ export const translations: Record<Language, Record<string, string>> = {
     navGames: "Game",
     navFamily: "Chhungkua",
     navSettings: "Hmanrua",
-    cognitiveCare: "Cognitive Care",
+    cognitiveCare: "Memora",
     chooseLanguage: "I ṭawng thlang rawh",
     languageSubtext: "I hman thiam ber ṭawng thlang rawh.",
     sayYourLanguage: "I ṭawng hming i sawi thei bawk e.",

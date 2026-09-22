@@ -328,16 +328,16 @@ export const LoginProfileFlow: React.FC<LoginProfileFlowProps> = ({
     return (
       <div className="min-h-screen bg-[#060D1E] text-white flex flex-col justify-center items-center px-4 py-8">
         <div className="w-full max-w-md mx-auto space-y-6">
-          {/* Header Brand with Mascot matching screenshot */}
-          <div className="flex items-center justify-center gap-3">
-            <div className="w-16 h-16 shrink-0 relative flex items-center justify-center">
-              <NeuroMascot mood="happy" size="sm" className="scale-75 origin-center" />
+          {/* Header Brand with Memora Logo */}
+          <div className="flex items-center justify-center gap-4">
+            <div className="w-16 h-16 shrink-0 relative flex items-center justify-center rounded-2xl bg-white/10 p-2 border border-white/20 shadow-md">
+              <img src="/memora-logo.png" alt="Memora logo" className="w-full h-full object-contain" />
             </div>
             <div>
               <h1 className="text-3xl font-extrabold tracking-tight text-white leading-tight">
-                CogniCare
+                Memora
               </h1>
-              <p className="text-xs sm:text-sm text-cyan-300 font-medium">
+              <p className="text-xs sm:text-sm text-teal-300 font-medium">
                 Remember. Engage. Live Independently.
               </p>
             </div>

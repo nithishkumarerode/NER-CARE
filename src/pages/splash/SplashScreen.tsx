@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { Brain, Sparkles } from 'lucide-react';
 
 interface SplashScreenProps {
   onFinish: () => void;
@@ -9,29 +8,32 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onFinish();
-    }, 2400);
+    }, 2600);
     return () => clearTimeout(timer);
   }, [onFinish]);
 
   return (
     <div
       onClick={onFinish}
-      className="fixed inset-0 z-50 bg-[#007AFF] flex flex-col items-center justify-center text-white cursor-pointer select-none animate-fade-in"
+      className="fixed inset-0 z-50 bg-gradient-to-b from-[#0072EA] via-[#0060C7] to-[#004EA6] flex flex-col items-center justify-center text-white cursor-pointer select-none animate-fade-in"
     >
-      {/* Central Brand Logo & Icon matching Page 1 of Reference PDF */}
-      <div className="flex flex-col items-center animate-scale-in">
-        <div className="relative mb-4 flex items-center justify-center">
-          <div className="w-24 h-24 rounded-3xl bg-white/15 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-2xl">
-            <Brain className="w-14 h-14 text-white" />
+      {/* Central Brand Logo & Name */}
+      <div className="flex flex-col items-center animate-scale-in text-center px-6">
+        <div className="relative mb-5 flex items-center justify-center">
+          <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-white shadow-2xl shadow-blue-950/40 p-3 flex items-center justify-center border-2 border-white/60">
+            <img
+              src="/memora-logo.png"
+              alt="Memora logo"
+              className="w-full h-full object-contain"
+            />
           </div>
-          <Sparkles className="w-6 h-6 text-cyan-200 absolute -top-1 -right-1 animate-pulse" />
         </div>
 
         <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white mb-2">
-          CogniCare
+          Memora
         </h1>
 
-        <span className="px-3.5 py-0.5 rounded-full bg-white/20 text-xs font-black tracking-widest uppercase text-white mb-4">
+        <span className="px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-sm text-xs font-black tracking-widest uppercase text-white mb-4 border border-white/20">
           NORTH EASTERN REGION
         </span>
 
@@ -43,8 +45,9 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
       {/* Subtle bottom indicator */}
       <div className="absolute bottom-8 flex flex-col items-center">
         <div className="w-8 h-1 rounded-full bg-white/40 mb-2"></div>
-        <span className="text-[11px] text-white/60">Tap anywhere to proceed</span>
+        <span className="text-[11px] text-white/70 tracking-wide">Tap anywhere to proceed</span>
       </div>
     </div>
   );
 };
+

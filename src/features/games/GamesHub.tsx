@@ -52,7 +52,7 @@ export const GamesHub: React.FC<GamesHubProps> = ({
         <div>
           <div className="flex items-center gap-2">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-              Cognitive Care Games
+              Memora Cognitive Games
             </h2>
             <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-bold">
               20 Activities

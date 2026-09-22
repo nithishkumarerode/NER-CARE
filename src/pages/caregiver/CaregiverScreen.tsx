@@ -45,14 +45,22 @@ export const CaregiverScreen: React.FC<CaregiverScreenProps> = ({
 
   return (
     <div className="w-full max-w-md mx-auto px-4 pb-28 pt-2 select-none animate-fade-in">
-      {/* Header matching Page 21 */}
-      <div className="mb-4">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-          {getTranslation(language, 'friendsAndFamily')}
-        </h2>
-        <p className="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
-          {getTranslation(language, 'friendsFamilySub')}
-        </p>
+      {/* Header with Memora branding */}
+      <div className="mb-4 flex items-start justify-between gap-3">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-teal-300 px-2.5 py-0.5 rounded-full bg-teal-950/60 border border-teal-500/30">
+              Memora Caregiver Portal
+            </span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            {getTranslation(language, 'friendsAndFamily')}
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
+            {getTranslation(language, 'friendsFamilySub')}
+          </p>
+        </div>
+        <img src="/memora-logo.png" alt="Memora logo" className="w-10 h-10 object-contain rounded-xl p-1 bg-white/10 border border-white/20 shrink-0" />
       </div>
 
       {/* Mode Selector Pill */}

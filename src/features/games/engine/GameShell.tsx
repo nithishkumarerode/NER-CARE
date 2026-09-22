@@ -266,7 +266,7 @@ export const GameShell: React.FC<GameShellProps> = ({
           <span>Restart Level</span>
         </button>
 
-        <span className="text-slate-500 font-medium">CogniCare NER • Activity Mode</span>
+        <span className="text-slate-500 font-medium">Memora NER • Activity Mode</span>
       </footer>
 
       {/* Universal Result Modal */}

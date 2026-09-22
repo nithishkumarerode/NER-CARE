@@ -57,11 +57,12 @@ export const ASHAWorkerDashboard: React.FC<ASHAWorkerDashboardProps> = ({
             <ArrowLeft className="w-6 h-6" />
           </button>
 
-          <div className="flex items-center space-x-2">
-            <div className="w-9 h-9 rounded-xl bg-teal-600/30 border border-teal-400/40 flex items-center justify-center text-teal-300">
-              <Stethoscope className="w-5 h-5" />
+          <div className="flex items-center space-x-2.5">
+            <img src="/memora-logo.png" alt="Memora logo" className="w-9 h-9 object-contain rounded-xl p-1 bg-white/10 border border-teal-500/30" />
+            <div className="text-left">
+              <h1 className="text-lg font-bold leading-tight">ASHA Portal</h1>
+              <p className="text-[10px] text-teal-300 font-semibold uppercase tracking-wider">Memora Health Network</p>
             </div>
-            <h1 className="text-xl font-bold">ASHA Field Worker Portal</h1>
           </div>
 
           <div className="flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-700 text-xs font-semibold">

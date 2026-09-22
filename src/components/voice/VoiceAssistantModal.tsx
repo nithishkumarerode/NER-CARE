@@ -96,8 +96,14 @@ export const VoiceAssistantModal: React.FC<VoiceAssistantModalProps> = ({
           <X className="w-5 h-5" />
         </button>
 
+        {/* Memora Voice Badge */}
+        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-teal-500/30 text-teal-300 text-xs font-bold mb-1">
+          <img src="/memora-logo.png" alt="Memora logo" className="w-4 h-4 object-contain" />
+          <span>Memora Voice</span>
+        </div>
+
         {/* Pulsing Mic Circle */}
-        <div className="relative my-4">
+        <div className="relative my-3">
           <button
             onClick={startListening}
             className={`w-24 h-24 rounded-full flex items-center justify-center transition-all ${

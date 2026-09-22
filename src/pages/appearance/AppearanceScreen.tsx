@@ -420,7 +420,7 @@ export const AppearanceScreen: React.FC<AppearanceScreenProps> = ({
 
             <h3 className="text-xl font-bold mb-2">Restore Default Appearance?</h3>
             <p className="text-xs opacity-80 mb-6 leading-relaxed">
-              This will restore the original CogniCare royal navy theme and default contrast settings.
+              This will restore the original Memora royal navy theme and default contrast settings.
             </p>
 
             <div className="flex space-x-3">

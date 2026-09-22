@@ -308,6 +308,15 @@ export const SettingsScreen: React.FC<SettingsScreenProps> = ({
         </div>
       </div>
 
+      {/* Memora Brand Footer Card */}
+      <div className="p-4 rounded-3xl bg-slate-900/60 border border-teal-500/20 mb-6 flex items-center justify-center gap-3 shadow-inner">
+        <img src="/memora-logo.png" alt="Memora logo" className="w-9 h-9 object-contain" />
+        <div>
+          <h5 className="text-sm font-bold text-white">Memora</h5>
+          <p className="text-[11px] text-teal-300">North Eastern Region • Cognitive Care Platform</p>
+        </div>
+      </div>
+
       {/* MODAL: Tell us your name first matching Reference Page 20 */}
       {showNameModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">

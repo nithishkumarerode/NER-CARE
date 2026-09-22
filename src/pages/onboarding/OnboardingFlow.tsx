@@ -84,16 +84,28 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
 
       {/* STEP 1: WELCOME SCREEN (Reference Page 2) */}
       {step === 1 && (
-        <div className="w-full max-w-md flex flex-col items-center justify-center my-auto animate-fade-in">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white text-center mb-6 tracking-tight">
+        <div className="w-full max-w-md flex flex-col items-center justify-center my-auto animate-fade-in text-center">
+          <div className="w-20 h-20 mb-3 rounded-3xl bg-white/10 p-2 border border-white/20 flex items-center justify-center shadow-xl">
+            <img
+              src="/memora-logo.png"
+              alt="Memora logo"
+              className="w-full h-full object-contain"
+            />
+          </div>
+
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-white text-center mb-2 tracking-tight">
             {getTranslation(language, 'welcomeTitle')}
           </h1>
 
+          <p className="text-slate-300 text-xs sm:text-sm max-w-xs mx-auto mb-4 leading-relaxed">
+            Simple cognitive activities, daily routines and memory assistance designed for everyday living.
+          </p>
+
           <NeuroMascot
             mood="waving"
-            size="xl"
+            size="lg"
             speechBubble={getTranslation(language, 'neuroIntro')}
-            className="my-4"
+            className="my-2"
           />
 
           <div className="w-full space-y-3 mt-8">
